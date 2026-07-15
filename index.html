@@ -2,6 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-N5SWZJ33');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival dos Gatos 2026</title>
@@ -131,6 +143,12 @@
 
 <body>
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5SWZJ33" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
     <section class="hero">
         <h1>Festival dos Gatos 2026 🐱</h1>
         <p>
@@ -203,7 +221,7 @@
 
     <script>
 
-       
+
         function handleFormSubmit(formId) {
             const form = document.getElementById(formId);
             if (!form) return;
@@ -219,7 +237,7 @@
 
                 /* Validação básica */
                 const requiredFields = form.querySelectorAll('[required]');
-                let valid = true;           
+                let valid = true;
                 requiredFields.forEach(field => {
                     field.style.borderColor = '';
                     if (!field.value.trim()) {
@@ -234,10 +252,10 @@
                 // Desativa o botão imediatamente para evitar cliques duplos/triplos do usuário
                 submitBtn.disabled = true;
 
-              
-               
 
-               
+
+
+
 
                 /* Coleta dados para dataLayer */
                 const formData = new FormData(form);
@@ -257,13 +275,13 @@
                     lead_mensagem: payload.mensagem
                 });
 
-    
+
             });
         }
 
         // Inicializa os formulários
         handleFormSubmit('form-geral');
-       
+
     </script>
 
 </body>
