@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival dos Gatos 2026</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ff914d, #ffcc70);
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            background: #fff;
+            color: #ff7b22;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .btn:hover {
+            background: #ffe8d5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        .card h3 {
+            color: #ff7b22;
+            margin-bottom: 15px;
+        }
+
+        .form-section {
+            background: #fff;
+            margin-top: 60px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: grid;
+            gap: 18px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #ff7b22;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e96d18;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Festival dos Gatos 2026 🐱</h1>
+        <p>
+            Um dia inteiro para amantes de gatos com palestras, adoção responsável,
+            feira pet, concursos e muito conteúdo para quem ama felinos.
+        </p>
+
+        <a href="#inscricao" class="btn">
+            Quero Participar
+        </a>
+    </section>
+
+    <section class="container">
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>🐈 Palestras</h3>
+                <p>Especialistas em comportamento, saúde e alimentação felina.</p>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Concurso</h3>
+                <p>Leve seu gato para competir em diversas categorias divertidas.</p>
+            </div>
+
+            <div class="card">
+                <h3>❤️ Adoção</h3>
+                <p>Conheça ONGs e encontre um novo melhor amigo.</p>
+            </div>
+
+        </div>
+
+        <section class="form-section" id="inscricao">
+
+            <h2>Garanta sua vaga</h2>
+
+            <form action="#" method="post" id="form-geral">
+
+                <input type="text" name="nome" placeholder="Nome completo" required>
+
+                <input type="email" name="email" placeholder="Seu e-mail" required>
+
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+
+                <select name="tipo_ingresso" required>
+                    <option value="">Selecione o ingresso</option>
+                    <option value="basico">Ingresso Básico</option>
+                    <option value="premium">Ingresso Premium</option>
+                    <option value="vip">Ingresso VIP</option>
+                </select>
+
+                <textarea name="mensagem" rows="5"
+                    placeholder="Conte-nos qual é a raça ou nome do seu gato (opcional)."></textarea>
+
+                <button type="submit" class="btn-submit">
+                    Confirmar Inscrição
+                </button>
+
+            </form>
+
+        </section>
+
+    </section>
+
+    <footer>
+        © 2026 Festival dos Gatos • Todos os direitos reservados.
+    </footer>
+
+
+    <script>
+
+       
+        function handleFormSubmit(formId) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            // Escuta o clique no botão de submit de forma isolada
+            const submitBtn = form.querySelector('.btn-submit');
+            if (!submitBtn) return;
+
+            submitBtn.addEventListener('click', function (e) {
+                // Para completamente qualquer comportamento nativo ou propagação automática
+                e.preventDefault();
+                e.stopPropagation();
+
+                /* Validação básica */
+                const requiredFields = form.querySelectorAll('[required]');
+                let valid = true;           
+                requiredFields.forEach(field => {
+                    field.style.borderColor = '';
+                    if (!field.value.trim()) {
+                        field.style.borderColor = "red";
+                        valid = false;
+                    }
+                });
+
+                // Se não for válido, para aqui e não faz o push
+                if (!valid) return;
+
+                // Desativa o botão imediatamente para evitar cliques duplos/triplos do usuário
+                submitBtn.disabled = true;
+
+              
+               
+
+               
+
+                /* Coleta dados para dataLayer */
+                const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
+                console.log(payload.mensagem)
+
+
+                /* Push ÚNICO para o dataLayer */
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'form_submit',
+                    form_id: form.id,
+                    lead_ingresso: payload.tipo_ingresso || '',
+                    lead_email: payload.email,
+                    lead_telefone: payload.telefone,
+                    lead_nome: payload.nome,
+                    lead_mensagem: payload.mensagem
+                });
+
+    
+            });
+        }
+
+        // Inicializa os formulários
+        handleFormSubmit('form-geral');
+       
+    </script>
+
+</body>
+
+</html>
