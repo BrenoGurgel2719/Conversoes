@@ -260,6 +260,10 @@
                 const input_email = form.querySelector('input[type="email"]')
                 const input_telefone = form.querySelector('input[type="tel"]')
 
+                const EmailUser = input_email? input_email.value.trim(): "";
+                const TelefoneUser = input_email? input_email.value.trim(): "";
+                console.log(`Número de cel: ${TelefoneUser} e Email:${EmailUser}`)
+
 
                 /* Push ÚNICO para o dataLayer */
                 window.dataLayer = window.dataLayer || [];
