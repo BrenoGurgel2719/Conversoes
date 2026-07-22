@@ -256,7 +256,9 @@
                 /* Coleta dados para dataLayer */
                 const formData = new FormData(form);
                 const payload = Object.fromEntries(formData.entries());
-                console.log(payload.mensagem)
+                
+                const input_email = form.querySelector('input[type="email"]')
+                const input_telefone = form.querySelector('input[type="tel"]')
 
 
                 /* Push ÚNICO para o dataLayer */
