@@ -226,18 +226,13 @@
             const form = document.getElementById(formId);
             if (!form) return;
 
-            // Escuta o clique no botão de submit de forma isolada
-            const submitBtn = form.querySelector('.btn-submit');
-            if (!submitBtn) return;
-
-            submitBtn.addEventListener('click', function (e) {
-                // Para completamente qualquer comportamento nativo ou propagação automática
-                e.preventDefault();
-                e.stopPropagation();
+            // Alterado: Escuta o SUBMIT do formulário, não o clique do botão
+            form.addEventListener('submit', function (e) {
 
                 /* Validação básica */
                 const requiredFields = form.querySelectorAll('[required]');
                 let valid = true;
+
                 requiredFields.forEach(field => {
                     field.style.borderColor = '';
                     if (!field.value.trim()) {
@@ -246,41 +241,45 @@
                     }
                 });
 
-                // Se não for válido, para aqui e não faz o push
-                if (!valid) return;
+                // Se não for válido, o navegador já barra ou paramos aqui
+                if (!valid) {
+                    e.preventDefault();
+                    return;
+                }
 
-                // Desativa o botão imediatamente para evitar cliques duplos/triplos do usuário
-                submitBtn.disabled = true;
-                
-                
+                // Desativa o botão de submit para evitar múltiplos cliques seguidos
+                const submitBtn = form.querySelector('.btn-submit');
+                if (submitBtn) submitBtn.disabled = true;
+
                 /* Coleta dados para dataLayer */
                 const formData = new FormData(form);
                 const payload = Object.fromEntries(formData.entries());
-                
-                const input_email = form.querySelector('input[type="email"]')
-                const input_telefone = form.querySelector('input[type="tel"]')
 
-                const EmailUser = input_email? input_email.value.trim(): "";
-                const TelefoneUser = input_telefone? input_telefone.value.trim(): "";
-                console.log(`Número de cel: ${TelefoneUser} e Email:${EmailUser}`)
+                const input_email = form.querySelector('input[type="email"]');
+                const input_telefone = form.querySelector('input[type="tel"]');
 
+                const EmailUser = input_email ? input_email.value.trim() : "";
+                const TelefoneUser = input_telefone ? input_telefone.value.trim() : "";
+                console.log(`Número de cel: ${TelefoneUser} e Email:${EmailUser}`);
 
                 /* Push ÚNICO para o dataLayer */
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
-                    event: 'form_submit',
+                    event: 'form_submit', // Este nome deve ser o seu acionador no GTM
                     form_id: form.id,
                     lead_ingresso: payload.tipo_ingresso || '',
-                    lead_email:EmailUser,
-                    lead_celular:TelefoneUser,
-                    lead_nome: payload.nome,
+                    lead_email: EmailUser,
+                    lead_celular: TelefoneUser,
+                    lead_nome: payload.nome || '',
                 });
 
-
+                // NOTA: Se o seu formulário envia dados de forma tradicional (recarregando a página),
+                // NÃO use e.preventDefault(). Deixe o navegador seguir o fluxo natural.
+                // Se o formulário envia por AJAX/Fetch (sem recarregar), adicione e.preventDefault() e a sua função de envio aqui.
             });
         }
 
-        // Inicializa os formulários
+        // Inicializa o formulário
         handleFormSubmit('form-geral');
 
     </script>
