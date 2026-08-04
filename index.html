@@ -229,6 +229,8 @@
             // Alterado: Escuta o SUBMIT do formulário, não o clique do botão
             form.addEventListener('submit', function (e) {
 
+                e.preventDefault();
+
                 /* Validação básica */
                 const requiredFields = form.querySelectorAll('[required]');
                 let valid = true;
