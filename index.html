@@ -226,11 +226,11 @@
             const form = document.getElementById(formId);
             if (!form) return;
 
-            // Alterado: Escuta o SUBMIT do formulário, não o clique do botão
+            // GARANTIA: Remove o escutador antigo se a função for chamada novamente (evita disparar 5 vezes)
+            if (form.dataset.listenerActive) return;
+            form.dataset.listenerActive = "true";
+
             form.addEventListener('submit', function (e) {
-
-                e.preventDefault();
-
                 /* Validação básica */
                 const requiredFields = form.querySelectorAll('[required]');
                 let valid = true;
@@ -243,13 +243,13 @@
                     }
                 });
 
-                // Se não for válido, o navegador já barra ou paramos aqui
+                // Se NÃO for válido, barra o envio aqui
                 if (!valid) {
                     e.preventDefault();
                     return;
                 }
 
-                // Desativa o botão de submit para evitar múltiplos cliques seguidos
+                // Desativa o botão para evitar cliques repetidos rápidos
                 const submitBtn = form.querySelector('.btn-submit');
                 if (submitBtn) submitBtn.disabled = true;
 
@@ -264,10 +264,10 @@
                 const TelefoneUser = input_telefone ? input_telefone.value.trim() : "";
                 console.log(`Número de cel: ${TelefoneUser} e Email:${EmailUser}`);
 
-                /* Push ÚNICO para o dataLayer */
+                /* Push ÚNICO e ISOLADO para o dataLayer */
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
-                    event: 'form_submit', // Este nome deve ser o seu acionador no GTM
+                    event: 'form_submit',
                     form_id: form.id,
                     lead_ingresso: payload.tipo_ingresso || '',
                     lead_email: EmailUser,
@@ -275,13 +275,13 @@
                     lead_nome: payload.nome || '',
                 });
 
-                // NOTA: Se o seu formulário envia dados de forma tradicional (recarregando a página),
-                // NÃO use e.preventDefault(). Deixe o navegador seguir o fluxo natural.
-                // Se o formulário envia por AJAX/Fetch (sem recarregar), adicione e.preventDefault() e a sua função de envio aqui.
+                // ATENÇÃO: Se o formulário envia recarregando a página, NÃO use e.preventDefault() abaixo.
+                // Se envia por AJAX/Fetch (sem recarregar), descomente a linha abaixo e insira seu fetch/axios:
+                // e.preventDefault();
             });
         }
 
-        // Inicializa o formulário
+        // Inicializa o formulário com segurança
         handleFormSubmit('form-geral');
 
     </script>
